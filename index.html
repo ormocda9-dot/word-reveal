@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<title>Word Reveal</title>
+
+<style>
+body {
+    background: transparent;
+    font-family: sans-serif;
+    text-align: center;
+    color: white;
+}
+#question {
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+#word {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 40px 0;
+}
+.box {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 10px;
+    font-size: 48px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+.hidden {
+    color: transparent;
+}
+.controls button {
+    margin: 6px;
+    padding: 12px 18px;
+    font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="question">🇬🇪 საქართველოს დედაქალაქი (7 ასო)</div>
+
+<div id="word"></div>
+
+<div class="controls">
+    <button onclick="revealNext()">🔓 შემდეგი ასო</button>
+    <button onclick="resetWord()">🔄 Reset</button>
+</div>
+
+<script>
+const word = ["თ","ბ","ი","ლ","ი","ს","ი"];
+let revealedIndex = 0;
+const wordDiv = document.getElementById("word");
+
+function drawWord() {
+    wordDiv.innerHTML = "";
+    word.forEach((letter, index) => {
+        const box = document.createElement("div");
+        box.className = "box hidden";
+        box.textContent = letter;
+        box.id = "box-" + index;
+        wordDiv.appendChild(box);
+    });
+}
+function revealNext() {
+    if (revealedIndex < word.length) {
+        document.getElementById("box-" + revealedIndex).classList.remove("hidden");
+        revealedIndex++;
+    }
+}
+function resetWord() {
+    revealedIndex = 0;
+    drawWord();
+}
+drawWord();
+</script>
+
+</body>
+</html>
